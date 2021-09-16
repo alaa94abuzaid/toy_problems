@@ -23,6 +23,27 @@ NOTE: Once the chain starts the terms are allowed to go above one million.
  * Write the unit tests that cover your solution
  */
 
-function collatzSeq (number) {
-// TO DO
+function collatzSeq(number = 1000000) {
+  // TO DO
+  let x = 1;
+  let y = [x];
+  let lengths = [];
+  let nextItem = 0;
+  while (x <= number) {
+    x % 2 ? (nextItem = 3 * x + 1) : (nextItem = x / 2);
+    y.push(nextItem);
+    while (nextItem > 1) {
+      nextItem % 2 ? (nextItem = 3 * x + 1) : (nextItem = x / 2);
+      y.push(nextItem);
+    }
+    lengths.push(y.length);
+    x = +x;
+  }
+  return lengths.indexOf(Math.max(...lengths));
 }
+
+describe("Tests", () => {
+  it("test", () => {
+    expect(collatzSeq(1)).toEqual(1);
+  });
+});
