@@ -42,8 +42,8 @@ function collatzSeq(number = 1000000) {
   return lengths.indexOf(Math.max(...lengths));
 }
 
-describe("Tests", () => {
-  it("test", () => {
-    expect(collatzSeq(1)).toEqual(1);
-  });
-});
+// describe("Tests", () => {
+//   it("test", () => {
+//     expect(collatzSeq(1)).toEqual(1);
+//   });
+// });

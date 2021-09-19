@@ -24,6 +24,30 @@
  *	"())"
  */
 
- function balancedParens(input) {
+function balancedParens(input) {
   //  TO DO
+    let brackets = [];
+    for (let i = 0; i < input.length; i++) {
+      if (input[i] === "(") {
+        brackets.push(input[i]);
+      } else if (input[i] === ")") {
+        if (brackets[brackets.length - 1] === "(") brackets.pop();
+        else brackets.push("#");
+      }
+    }
+    return !brackets.length;
 }
+
+describe("Tests", () => {
+	it("test pingPongTracker", () => {
+    expect(balancedParens('(')).toEqual(false)
+    expect(balancedParens('()')).toEqual(true)
+    expect(balancedParens(')(')).toEqual(false)
+    expect(balancedParens('(())')).toEqual(true)
+
+    expect(balancedParens('[](){}')).toEqual(true)
+    expect(balancedParens('[({})]')).toEqual(true)
+    expect(balancedParens('[(]{)}')).toEqual(false)
+
+	})
+})
