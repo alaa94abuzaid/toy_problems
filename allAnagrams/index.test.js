@@ -15,21 +15,23 @@
  * console.log(anagrams); // [ 'abc', 'acb', 'bac', 'bca', 'cab', 'cba' ]
  */
 
- const allAnagrams =  (string) => {
-  const splitStr = string.split('');
-  const strLength = splitStr.length;
-  const results = {};
-  const perm = (roundCount, anagrams) => {
-    if(roundCount === 0){
-      return results[anagrams] = anagrams
+const allAnagrams = (string) => {
+  if (string.length < 2) {
+    return [string];
+  } else {
+    let all = [];
+    for (let i = 0; i < string.length; i++) {
+      let chars = string.split("");
+      let letter = chars[i];
+      delete chars[i];
+      let arr = allAnagrams(chars.join(""));
+      for (let j = 0; j < arr.length; j++) {
+        all.push(letter + arr[j]);
+      }
     }
-    for(let i = 0; i < strLength; i++){
-      perm(roundCount - 1, anagrams + splitStr[i])
-    }
+    return all;
   }
-  perm(strLength, '')
-  return Object.keys(results)
-}
+};
 
 describe("Tests", () => {
   it("test", () => {
