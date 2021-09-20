@@ -10,10 +10,36 @@
  */
 
 /**
-  * example usage:
-  * var anagrams = allAnagrams('abc');
-  * console.log(anagrams); // [ 'abc', 'acb', 'bac', 'bca', 'cab', 'cba' ]
-  */
+ * example usage:
+ * var anagrams = allAnagrams('abc');
+ * console.log(anagrams); // [ 'abc', 'acb', 'bac', 'bca', 'cab', 'cba' ]
+ */
 
-const allAnagrams = function(string) {
-};
+ const allAnagrams =  (string) => {
+  const splitStr = string.split('');
+  const strLength = splitStr.length;
+  const results = {};
+  const perm = (roundCount, anagrams) => {
+    if(roundCount === 0){
+      return results[anagrams] = anagrams
+    }
+    for(let i = 0; i < strLength; i++){
+      perm(roundCount - 1, anagrams + splitStr[i])
+    }
+  }
+  perm(strLength, '')
+  return Object.keys(results)
+}
+
+describe("Tests", () => {
+  it("test", () => {
+    expect(allAnagrams("abc")).toEqual([
+      "abc",
+      "acb",
+      "bac",
+      "bca",
+      "cab",
+      "cba",
+    ]);
+  });
+});
