@@ -19,20 +19,42 @@
  *
  * More credits: Do you need to consider every element every time you iterate
  * through the array? Again: Has the time complexity of your algorithm changed?
-*/
+ */
 
 const a = [34, 203, 3, 746, 200, 984, 198, 764, 9];
 /*
  * Example usage:
  * bubbleSort([2, 1, 3]); // yields [1, 2, 3]
  *
-*/
+ */
 
 // Feel free to add helper functions if needed
 
-const bubbleSort = (array) => {};
+const bubbleSort = (array) => {
+  let i = 0;
+  let x = array[i];
+  length = array.length;
+  while (i < length) {
+    x = array[i];
+    i++;
+    if (array[i - 1] > array[i]) {
+      array[i - 1] = array[i];
+      array[i] = x;
+    }
+  }
+  return array;
+};
+
+describe("Tests", () => {
+  it("test", () => {
+    expect(bubbleSort(a)).toEqual(a.sort());
+
+    console.log(bubbleSort(a));
+    console.log(a.sort());
+  });
+});
 
 /**
  * Remember to look here http://visualgo.net/sorting
  *
-*/
+ */
