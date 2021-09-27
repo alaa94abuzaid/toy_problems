@@ -28,4 +28,29 @@ function getMinOfArray(numArray) {
 
 var maximumProfit  = function(array) {
 	//your code is here
+  let max = 0;
+
+  let min = array[0];
+
+  for(let i = 1; i < array.length; i++){
+
+      let price = array[i];
+
+      if(price < min) min = price;
+
+      let profit = price - min;
+
+      max = Math.max(profit, max);
+
+
+  }
+  return max;
+
 }
+
+describe("Tests", () => {
+  it("test", () => {
+    expect(maximumProfit([100, 80, 120, 130, 70, 60, 100, 125])).toEqual(65);
+    expect(maximumProfit([100, 80, 70, 65, 60, 55, 50])).toEqual(0);
+  });
+});

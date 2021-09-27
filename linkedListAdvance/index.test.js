@@ -18,9 +18,75 @@
 // list.removeHead(); //yields '4'
 // list.tail.value;   //yields '5';
 
-
-const LinkedList = () => {
-  //fill me in!
+// const Node
+const LinkedList = function() {
+  this.next = null
+  this.head = null
+  this.tail = null
 };
 
+LinkedList.prototype.tail = function() {
+  // let lastNode = this.head;
+  // while (lastNode.next) {
+  //     lastNode = lastNode.next
+  // }
+return this.tail
+};
+
+LinkedList.prototype.addToTail = function (value) {
+  const newTail = { value, next: null };
+
+  if (this.tail) {
+    this.tail.next = newTail;
+  } else {
+    this.head = newTail;
+  }
+  this.tail = newTail;
+};
+
+LinkedList.prototype.removeHead = function () {
+  const currentHead = this.head;
+  const newHead = this.head.next;
+  if (newHead === null) {
+    this.tail = null;
+  }
+  this.head = newHead;
+  return currentHead ? currentHead.value : null;
+};
+
+LinkedList.prototype.contains = function (t) {
+  let node = this.head;
+  while (node) {
+    if (node.value === t) {
+      return true;
+    }
+    node = node.next;
+  }
+  return false;
+};
+
+// LinkedList.prototype.addToTail = function(value) {
+//   var newNode = makeNode(value);
+//   if (!this.head.value) {
+//     this.head = newNode;
+//   }
+//   this.tail.next = newNode;
+//   this.tail = newNode;
+// };
+
+// LinkedList.prototype.tail = () => {
+//   let lastNode = this.head;
+//   while (lastNode.next) {
+//       lastNode = lastNode.next
+//   }
+// return lastNode
+// }
 //write methods here!
+
+describe("#LinkedList", () => {
+  const list = new LinkedList()
+
+  it("test linked list clear", () => {
+		expect(list.tail).toBeNull()
+	})
+})
