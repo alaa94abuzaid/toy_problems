@@ -28,4 +28,30 @@ const DIGIT_VALUES = {
 
  const translateRomanNumeral = (romanNumeral)=> {
    // TO DO ...
+   let number = DIGIT_VALUES[romanNumeral[0]]
+   for (i=1; i < romanNumeral.length; i++) {
+     currentLetter = romanNumeral[i];
+     currentNumber = DIGIT_VALUES[currentLetter]
+     previousNumber = DIGIT_VALUES[romanNumeral[i-1]]
+
+     if (previousNumber >= currentNumber) {
+       number += DIGIT_VALUES[currentLetter]
+    }
+    else {
+      number = DIGIT_VALUES[currentLetter] - number
+    }
+   }
+    if (number) {
+      return number
+    } else {
+      return null
+    }
   }
+
+  describe("translateRomanNumeral", () => {
+    it("translateRomanNumeral", () => {
+      expect(translateRomanNumeral("XXI")).toEqual(21);
+      expect(translateRomanNumeral("IV")).toEqual(4);
+      expect(translateRomanNumeral("A")).toBeNull();
+    });
+  });
