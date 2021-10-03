@@ -12,4 +12,16 @@
 
 const commonCharacters = (str1, str2) => {
   // TODO
+  let result = '';
+  const length = str1.length;
+  for (i = 0; i < length; i++) {
+    str2.includes(str1[i]) ? result = result.concat(str1[i]): '';
+  }
+  return result;
 };
+
+describe('Tests', () => {
+  it('test', () => {
+    expect(commonCharacters('acexivou', 'aegihobu')).toEqual('aeiou');
+  });
+});
