@@ -9,4 +9,12 @@
 
 const bitCounting = (num) => {
   // TODO
+  return x = num.toString(2).split('1').length - 1;
 };
+
+describe("bitCounting", () => {
+  it("bitCounting", () => {
+    expect(bitCounting(1234)).toEqual(5);
+    expect(bitCounting(1500)).toEqual(7);
+  });
+});
