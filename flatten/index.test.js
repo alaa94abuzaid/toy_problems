@@ -15,6 +15,24 @@ flatten('a', ['b', 2], 3, null, [[4], ['c']])
 // returns ['a', 'b', 2, 3, null, 4, 'c']
 */
 
-const flatten = () => {
+// eslint-disable-next-line require-jsdoc
+function flatten(...args) {
+  console.log('args', args);
+  const length = args.length;
+  console.log('length', length);
+  console.log(' typeof(args[i])', typeof(args[0]));
+  const result = [];
+  for (i = 0; i < length; i++) {
+    console.log(typeof(args[i]));
+    typeof(args[i]) === 'number' ?
+      result.push(args[i]) :
+      flatten(args[i]);
+  }
+  return result;
+}
 
-};
+describe('Tests', () => {
+  it('test flatten', () => {
+    expect(flatten(1, [2, 3], 4, 5, [6, [7]])).toEqual([1, 2, 3, 4, 5, 6, 7]);
+  });
+});
