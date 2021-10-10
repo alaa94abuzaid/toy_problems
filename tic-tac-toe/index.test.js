@@ -24,54 +24,78 @@ var solvedBoard = [[0,1,1],
 ticTacToe(solvedBoard);//should return 1
 */
 
+/**
+ * Check tic-tac-toe row
+ * @param {Array} arr The tic-tac-toe board.
+ * @return {number | undefined} 1 if x won, 2 if O won,
+ * undefined if it's not solved
+ */
+const checkRows = (arr) => {
+  let row = [];
+  let winner;
+  for (i = 0; i < 2; i++) {
+    row = arr[i];
+    if (row[0] !== row[1] || row[1] !== row[2]) {
+      continue;
+    } else {
+      winner = row[0];
+    }
+  }
+  return winner;
+};
+
+/**
+ * Check tic-tac-toe column
+ * @param {Array} arr The tic-tac-toe board.
+ * @return {number | undefined} 1 if x won, 2 if O won,
+ * undefined if it's not solved
+ */
+const checkColumns = (arr) => {
+  let column = [];
+  let winner;
+  for (i = 0; i < 2; i++) {
+    column = [arr[0][i], arr[1][i], arr[2][i]];
+    if (column[0] !== column[1] || column[1] !== column[2]) {
+      continue;
+    } else {
+      winner = column[0];
+    }
+  }
+  return winner;
+};
+
+/**
+ * Check tic-tac-toe diagonal
+ * @param {Array} arr The tic-tac-toe board.
+ * @return {number | undefined} 1 if x won, 2 if O won,
+ * undefined if it's not solved
+ */
+const checkDiag = (arr) => {
+  const diags = [
+    [arr[0][0], arr[1][1], arr[2][2]],
+    [arr[0][2], arr[1][1], arr[2][0]],
+  ];
+  let winner;
+  for (i = 0; i < 2; i++) {
+    if (diags[i][0] !== diags[i][1] || diags[i][1] !== diags[i][2]) {
+      continue;
+    } else {
+      winner = diags[i][0];
+    }
+  }
+  return winner;
+};
+
+/**
+ * Find tic-tac-toe result
+ * @param {Array} arr The tic-tac-toe board.
+ * @return {number | undefined} 1 if x won, 2 if O won,
+ * -1 if it's not solved
+ */
 const ticTacToe = (arr) => {
-  const checkRows = () => {
-    let row = [];
-    let winner;
-    for (i = 0; i < 2; i++) {
-      row = arr[i];
-      if (row[0] !== row[1] || row[1] !== row[2]) {
-        continue;
-      } else {
-        winner = row[0];
-      }
-    }
-    return winner;
-  };
-
-  const checkColumns = () => {
-    let column = [];
-    let winner;
-    for (i = 0; i < 2; i++) {
-      column = [arr[0][i], arr[1][i], arr[2][i]];
-      if (column[0] !== column[1] || column[1] !== column[2]) {
-        continue;
-      } else {
-        winner = column[0];
-      }
-    }
-    return winner;
-  };
-
-  const checkDiag = () => {
-    const diags = [
-      [arr[0][0], arr[1][1], arr[2][2]],
-      [arr[0][2], arr[1][1], arr[2][0]],
-    ];
-    let winner;
-    for (i = 0; i < 2; i++) {
-      if (diags[i][0] !== diags[i][1] || diags[i][1] !== diags[i][2]) {
-        continue;
-      } else {
-        winner = diags[i][0];
-      }
-    }
-    return winner;
-  };
-
-  rows = checkRows();
-  columns = checkColumns();
-  diag = checkDiag();
+  rows = checkRows(arr);
+  columns = checkColumns(arr);
+  diag = checkDiag(arr);
   if (rows) {
     return rows;
   } else if (columns) {
@@ -83,8 +107,8 @@ const ticTacToe = (arr) => {
   }
 };
 
-describe('Tests', () => {
-  it('test solveTic', () => {
+describe('ticTacToe', () => {
+  it('test ticTacToe', () => {
     const board = [
       [0, 0, 1],
       [0, 1, 2],
@@ -95,7 +119,6 @@ describe('Tests', () => {
       [0, 1, 2],
       [2, 1, 2],
     ];
-
     const solvedBoardDiag = [
       [2, 1, 1],
       [0, 2, 2],
