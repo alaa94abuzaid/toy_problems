@@ -94,17 +94,18 @@ const checkDiag = (arr) => {
  */
 const ticTacToe = (arr) => {
   rows = checkRows(arr);
-  columns = checkColumns(arr);
-  diag = checkDiag(arr);
   if (rows) {
     return rows;
-  } else if (columns) {
-    return columns;
-  } else if (diag) {
-    return diag;
-  } else {
-    return -1;
   }
+  columns = checkColumns(arr);
+  if (columns) {
+    return columns;
+  }
+  diag = checkDiag(arr);
+  if (diag) {
+    return diag;
+  }
+  return -1;
 };
 
 describe('ticTacToe', () => {
