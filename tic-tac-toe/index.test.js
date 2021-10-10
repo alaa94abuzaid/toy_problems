@@ -29,13 +29,11 @@ const ticTacToe = (arr) => {
     let row = [];
     let winner;
     for (i = 0; i < 2; i++) {
-      for (j = 0; j < 2; j++) {
-        row = arr[i];
-        if (row[j] !== row[j + 1]) {
-          break;
-        } else {
-          winner = row[j];
-        }
+      row = arr[i];
+      if (row[0] !== row[1] || row[1] !== row[2]) {
+        continue;
+      } else {
+        winner = row[0];
       }
     }
     return winner;
@@ -45,43 +43,41 @@ const ticTacToe = (arr) => {
     let column = [];
     let winner;
     for (i = 0; i < 2; i++) {
-      for (j = 0; j < 2; j++) {
-        column = [arr[0][i], arr[1][i], arr[2][i]];
-        if (column[j] !== column[j + 1]) {
-          break;
-        } else {
-          winner = column[j];
-        }
+      column = [arr[0][i], arr[1][i], arr[2][i]];
+      if (column[0] !== column[1] || column[1] !== column[2]) {
+        continue;
+      } else {
+        winner = column[0];
       }
     }
     return winner;
   };
 
-  //   const checkDiag = () => {
-  //     const diags = [
-  //       [arr[0][0], arr[1][1], arr[2][2]],
-  //       [arr[0][2], arr[1][1], arr[2][0]],
-  //     ];
-  //     console.log('diags', diags);
-  //     let winner;
-  //     for (i = 0; i < 2; i++) {
-  //       for (j = 0; j < 2; j++) {
-  //         if (diags[i][j] !== diags[i][j + 1]) {
-  //           break;
-  //         } else {
-  //           winner = diags[i][j];
-  //         }
-  //       }
-  //     }
-  //     return winner;
-  //   };
+  const checkDiag = () => {
+    const diags = [
+      [arr[0][0], arr[1][1], arr[2][2]],
+      [arr[0][2], arr[1][1], arr[2][0]],
+    ];
+    let winner;
+    for (i = 0; i < 2; i++) {
+      if (diags[i][0] !== diags[i][1] || diags[i][1] !== diags[i][2]) {
+        continue;
+      } else {
+        winner = diags[i][0];
+      }
+    }
+    return winner;
+  };
 
   rows = checkRows();
   columns = checkColumns();
+  diag = checkDiag();
   if (rows) {
     return rows;
   } else if (columns) {
     return columns;
+  } else if (diag) {
+    return diag;
   } else {
     return -1;
   }
@@ -100,7 +96,14 @@ describe('Tests', () => {
       [2, 1, 2],
     ];
 
+    const solvedBoardDiag = [
+      [2, 1, 1],
+      [0, 2, 2],
+      [2, 1, 2],
+    ];
+
     expect(ticTacToe(board)).toEqual(-1);
     expect(ticTacToe(solvedBoard)).toEqual(1);
+    expect(ticTacToe(solvedBoardDiag)).toEqual(2);
   });
 });
