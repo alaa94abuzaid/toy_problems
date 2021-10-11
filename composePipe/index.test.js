@@ -32,3 +32,72 @@
   var addAndMultiplyTwice = pipe(add2, multiplyBy3, multiplyBy3);
   addAndMultiplyTwice(5); //should be 63
  */
+
+/**
+ * add 'hello' to provided name
+ * @param {string} name name to greet
+ * @return {string} greet statment 'hello ' + name
+ */
+const greet = function(name) {
+  return 'hello ' + name;
+};
+
+/**
+ * convert to uppercase and add exclaimtion mark
+ * @param {string} statement to convert
+ * @return {string} uppercase from provided statment plus exclaimtion 
+ * mark at the end
+ */
+const exclaim = function(statement) {
+  return statement.toUpperCase() + '!';
+};
+
+/**
+ * add 2 to provided number
+ * @param {number} number nuumber to add
+ * @return {number} provided number + 2
+ */
+const add2 = function(number) {
+  return number + 2;
+};
+
+/**
+ * multiply by 3
+ * @param {number} number nuumber to multiply
+ * @return {number} provided number multiplied by 3
+ */
+const multiplyBy3 = function(number) {
+  return number * 3;
+};
+
+/**
+ * Compose functions from right to left
+ * @param {func} functions functions to compose
+ * @return {number | string} result from functions execution
+ */
+const compose = (...functions) => (x) =>
+  functions.reduceRight((acc, fn) => fn(acc), x);
+
+/**
+ * pipe functions from left to right
+ * @param {func} functions functions to pipe
+ * @return {number | string} result from functions execution
+ */
+const pipe = (...functions) => (x) => functions.reduce((acc, fn) => fn(acc), x);
+
+
+describe('Tests', () => {
+  it('test compose function', () => {
+    const welcome = compose(exclaim, greet);
+
+    expect(welcome('phillip')).toEqual('HELLO PHILLIP!');
+  });
+
+  it('test pipe function', () => {
+    const addAndMultiply = pipe(add2, multiplyBy3);
+    const addAndMultiplyTwice = pipe(add2, multiplyBy3, multiplyBy3);
+
+    expect(addAndMultiply(5)).toEqual(21);
+    expect(addAndMultiplyTwice(5)).toEqual(63);
+  });
+});
