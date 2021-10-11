@@ -73,7 +73,7 @@ const multiplyBy3 = function(number) {
 /**
  * Compose functions from right to left
  * @param {func} functions functions to compose
- * @return {number | string} result from functions execution
+ * @return {func} which excutes group of input functions from right to left
  */
 const compose = (...functions) => (x) =>
   functions.reduceRight((acc, fn) => fn(acc), x);
@@ -81,7 +81,7 @@ const compose = (...functions) => (x) =>
 /**
  * pipe functions from left to right
  * @param {func} functions functions to pipe
- * @return {number | string} result from functions execution
+ * @return {func} which excutes group of input functions from left to right
  */
 const pipe = (...functions) => (x) => functions.reduce((acc, fn) => fn(acc), x);
 
