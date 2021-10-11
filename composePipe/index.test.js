@@ -45,7 +45,7 @@ const greet = function(name) {
 /**
  * convert to uppercase and add exclaimtion mark
  * @param {string} statement to convert
- * @return {string} uppercase from provided statment plus exclaimtion 
+ * @return {string} uppercase from provided statment plus exclaimtion
  * mark at the end
  */
 const exclaim = function(statement) {
