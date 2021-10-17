@@ -17,5 +17,31 @@
 *
 */
 const rockPaperScissors = function(num) {
+  const plays = ['rock', 'paper', 'scissors'];
 
+  // store all plays arr of arrs
+  const outcomes = [];
+
+  // recursive function
+  const getOutcomes = (roundsLeft, playsSoFar) => {
+    // base case
+    if (roundsLeft === 0) {
+      outcomes.push(playsSoFar);
+    } else {
+      // for over each play
+      for (let i = 0; i < plays.length; i++) {
+        getOutcomes(roundsLeft - 1, playsSoFar.concat(plays[i]));
+      }
+    }
+  };
+
+  getOutcomes(num, []);
+  return outcomes;
 };
+
+describe('Tests', () => {
+  it('test rockPaperScissors', () => {
+    expect(rockPaperScissors(3).length).toEqual(27);
+    expect(rockPaperScissors(5).length).toEqual(243);
+  });
+});
