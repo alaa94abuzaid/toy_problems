@@ -8,8 +8,20 @@ of calling the callback function.
 See example usage to understand what arguments are passed to the callback.
 */
 
+// eslint-disable-next-line no-extend-native
 Array.prototype.map = function(callback) {
+  // console.log(callback);
+  // console.log('length', this);
+  const result = [];
 
+  for (i=0; i<this.length; i++) {
+    result[i] = callback(this[i], i, this);
+  }
+  return result;
+};
+
+const transform = function(element, index, array) {
+  return array[index] + index + element;
 };
 
 /*
@@ -19,7 +31,6 @@ var transform = function(element,index,array){
 };
 ["a","b","c"].map(transform); //should return ['a0a','b1b','c2c'];
 */
-
 
 /*
 Problem 2:
@@ -31,8 +42,14 @@ with the error message - a simple string that says "Incorrect argument(s)".
 Please see example usage to understand what should be passed to the callback.
 */
 
-const asyncSum = function(a, b, callback) {
-
+const asyncSum = async function(a, b, callback) {
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  if (typeof a === 'number' && typeof b === 'number') {
+    callback(a + b);
+  } else {
+    callback('Incorrect argument(s)');
+    return 'Error: Incorrect argument(s)';
+  }
 };
 
 /*
@@ -53,9 +70,19 @@ asyncSum(10,"B",logNumber);
 //should print "Error: Incorrect argument(s)" after 1 second
 */
 
-
 /*
 Problem 3 (ADVANCED):
 What kind of candy do you like?
 Your answer:
 */
+
+describe('Tests', () => {
+  it('test map', async () => {
+    expect(['a', 'b', 'c'].map(transform)).toEqual(['a0a', 'b1b', 'c2c']);
+    asyncSum(10, 7, logNumber);
+    await new Promise((r) => setTimeout(r, 2000));
+    expect(['a', 'b', 'c'].map(transform)).toEqual(['a0a', 'b1b', 'c2c']);
+    asyncSum(10, 'B', logNumber);
+    await new Promise((r) => setTimeout(r, 2000));
+  });
+});
